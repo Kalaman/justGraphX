@@ -2,6 +2,7 @@
  * Created by Kalaman on 09.01.17.
  */
 public class Edge {
+    //KommentarX
     String name;
     double value;
 
