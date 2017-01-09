@@ -33,13 +33,7 @@ public class CSVReader {
 
             //Adding Edges
             while ((line = br.readLine()) != null) {
-
-                String[] nodeData = line.split(",");
-                //Neu
-
-                nodeData[1] = nodeData[1].replaceAll(" ","");
-
-                nodeArrayList.add(new Node(nodeData[0],Integer.parseInt(nodeData[1]),Integer.parseInt(nodeData[2])));
+                //Do stuff here
             }
 
         } catch (FileNotFoundException e) {
