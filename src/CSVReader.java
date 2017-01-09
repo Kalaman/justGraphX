@@ -35,6 +35,7 @@ public class CSVReader {
             while ((line = br.readLine()) != null) {
 
                 String[] nodeData = line.split(",");
+                //Neu
 
                 nodeData[1] = nodeData[1].replaceAll(" ","");
 
