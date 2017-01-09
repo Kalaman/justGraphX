@@ -33,7 +33,7 @@ public class CSVReader {
 
             //Adding Edges
             while ((line = br.readLine()) != null) {
-                //Do stuff here
+                //Do stuff here 2
             }
 
         } catch (FileNotFoundException e) {
