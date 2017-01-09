@@ -2,7 +2,7 @@
  * Created by Kalaman on 09.01.17.
  */
 public class Edge {
-    //KommentarXY
+    //KommentarXY2
     String name;
     double value;
 
