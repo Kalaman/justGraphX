@@ -1,3 +1,5 @@
+package Graph;
+
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -33,7 +35,7 @@ public class CSVReader {
 
             //Adding Edges
             while ((line = br.readLine()) != null) {
-                //Do stuff here 2
+                //Do stuff here
             }
 
         } catch (FileNotFoundException e) {

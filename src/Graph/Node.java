@@ -1,3 +1,5 @@
+package Graph;
+
 import java.awt.*;
 import java.util.HashMap;
 
