@@ -1,4 +1,7 @@
-import Graph.CSVReader;
+import Graph.GUI.JMainFrame;
+import Graph.Utilities.CSVReader;
+
+import java.util.PriorityQueue;
 
 /**
  * Created by Kalaman on 09.01.17.
@@ -6,5 +9,8 @@ import Graph.CSVReader;
 public class Main {
     public static void main(String [] arg){
         CSVReader.getNodeList();
+
+        new JMainFrame();
+
     }
 }

@@ -1,6 +1,7 @@
 package Graph;
 
 import java.awt.*;
+import java.util.ArrayList;
 import java.util.HashMap;
 
 /**
@@ -11,22 +12,23 @@ public class Node {
     private String name;
     private Point xyPosition;
 
-    private HashMap<Node,Double> edgeMap;
+    private ArrayList<Edge> edges;
 
     public Node (String name,int x,int y){
         this.name = name;
         this.xyPosition = new Point(x,y);
-        this.edgeMap = new HashMap<>();
+        this.edges = new ArrayList<>();
     }
 
-    public double getPosX ()
+
+    public int getPosX ()
     {
-        return xyPosition.getX();
+        return (int)xyPosition.getX();
     }
 
-    public double getPosY ()
+    public int getPosY ()
     {
-        return xyPosition.getX();
+        return (int)xyPosition.getY();
     }
 
     public String toString()
