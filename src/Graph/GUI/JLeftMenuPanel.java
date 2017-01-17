@@ -9,6 +9,8 @@ import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import javax.swing.text.DefaultCaret;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 /**
  * Created by Jok3r on 13.01.2017.
@@ -22,6 +24,8 @@ public class JLeftMenuPanel extends JPanel{
 
     JLabel jStartNodeLabel;
     JLabel jEndNodeLabel;
+
+    JComboBox jAlgorithmComboBox;
 
     JPanel boxLayoutPanel;
     public JGraphPanel jGraphPanel;
@@ -42,6 +46,7 @@ public class JLeftMenuPanel extends JPanel{
         addBoxLayout();
         addFlowLayout();
         addTextFieldListeners();
+        addComboBoxListeners();
 
         writeToConsole("Ready ...");
 
@@ -67,12 +72,14 @@ public class JLeftMenuPanel extends JPanel{
     {
         JPanel jPanelNodeStart = new JPanel();
         JPanel jPanelNodeEnd = new JPanel();
+        JPanel jPanelAlgorithm = new JPanel();
 
         jPanelNodeStart.setMaximumSize(new Dimension(Constants.PANEL_LEFT_MENU_SIZE_X,40));
         jPanelNodeEnd.setMaximumSize(new Dimension(Constants.PANEL_LEFT_MENU_SIZE_X,40));
 
         jPanelNodeStart.setLayout(new FlowLayout());
         jPanelNodeEnd.setLayout(new FlowLayout());
+        jPanelAlgorithm.setLayout(new FlowLayout());
 
         jPanelNodeStart.add(this.jStartNodeLabel);
         jPanelNodeStart.add(this.jStartNodeTextField);
@@ -80,8 +87,12 @@ public class JLeftMenuPanel extends JPanel{
         jPanelNodeEnd.add(this.jEndNodeLabel);
         jPanelNodeEnd.add(this.jEndNodeTextField);
 
+        jPanelAlgorithm.add(new JLabel("Algorithm"));
+        jPanelAlgorithm.add(this.jAlgorithmComboBox);
+
         this.boxLayoutPanel.add(jPanelNodeStart);
         this.boxLayoutPanel.add(jPanelNodeEnd);
+        this.boxLayoutPanel.add(jPanelAlgorithm);
 
         //boxLayoutPanel;
     }
@@ -100,12 +111,23 @@ public class JLeftMenuPanel extends JPanel{
         jEndNodeLabel = new JLabel("End Node");
         jStartNodeTextField = new JTextField(16);
         jEndNodeTextField = new JTextField(16);
+        jAlgorithmComboBox = new JComboBox(Constants.ALGORITHMS);
 
         jButtonStartAlgorithm.setEnabled(false);
 
         menuConsole = new JTextArea(13,1);
         menuConsole.setSize(new Dimension(Constants.PANEL_LEFT_MENU_SIZE_X,120));
         menuConsole.setEditable(false);
+    }
+
+    private void addComboBoxListeners ()
+    {
+        jAlgorithmComboBox.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                writeToConsole(e.getActionCommand());
+            }
+        });
     }
 
     private void addTextFieldListeners ()

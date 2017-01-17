@@ -48,6 +48,11 @@ public class Constants {
         NODE_NORMAL
     }
 
+    public static final String ALGORITHM_DIJKSTRA = "Dijkstra";
+    public static final String ALGORITHM_MCST = "MCST";
+
+    public static final String [] ALGORITHMS = {ALGORITHM_MCST,ALGORITHM_DIJKSTRA};
+
     public static final Node DEFAULT_NODE = new Node("-1",1337,1337);
 
 }
