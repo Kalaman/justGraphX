@@ -14,6 +14,9 @@ public class Node {
     private String name;
     private Point xyPosition;
 
+    private Node pi;
+    private Double key;
+
     private boolean marked;
     private int [] color = new int [3];
 
@@ -26,12 +29,23 @@ public class Node {
         this.xyPosition = new Point(x,y);
         this.edges = new ArrayList<>();
 
+        this.key = Constants.INFINITY;
+        this.pi = Constants.DEFAULT_NODE;
+
         changeNodeType(Constants.NODE_TYPE.NODE_NORMAL);
     }
 
     public Node (String name,int x,int y,boolean marked){
         this(name,x,y);
         markNode(marked);
+    }
+
+    public void setKey(double key) {
+        this.key = key;
+    }
+
+    public void setPi(Node pi) {
+        this.pi = pi;
     }
 
     public void markNode (boolean mark)
@@ -69,6 +83,36 @@ public class Node {
                 color = Constants.NODE_NORMAL_COLOR;
                 break;
         }
+    }
+
+    public double getKey() {
+        return key;
+    }
+
+    public ArrayList<Edge> getEdges() {
+        return edges;
+    }
+
+    public void addEdge (Edge edge)
+    {
+        edges.add(edge);
+    }
+
+    public Node getPi() {
+        return pi;
+    }
+
+    public Edge getEdgeByNeigbour (Node node)
+    {
+        for (Edge currentEdge : edges)
+        {
+            if (currentEdge.getNeighbour(this).equals(node))
+            {
+                return currentEdge;
+            }
+        }
+
+        return null;
     }
 
     public int [] getColor ()

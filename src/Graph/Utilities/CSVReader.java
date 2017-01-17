@@ -85,6 +85,10 @@ public class CSVReader {
 
                 Edge newEdge = new Edge(nodeHashMap.get(nodeData[0]),nodeHashMap.get(nodeData[1]));
                 edgeArrayList.add(newEdge);
+
+                nodeHashMap.get(nodeData[0]).addEdge(newEdge);
+                nodeHashMap.get(nodeData[1]).addEdge(newEdge);
+
             }
 
         } catch (FileNotFoundException e) {

@@ -1,8 +1,10 @@
 package Graph.GUI;
 
 import Graph.Node;
+import Graph.Utilities.Algorithm;
 import Graph.Utilities.CSVReader;
 import Graph.Utilities.Constants;
+import Graph.Utilities.PathDrawer;
 
 import javax.swing.*;
 import javax.swing.event.DocumentEvent;
@@ -11,6 +13,7 @@ import javax.swing.text.DefaultCaret;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.PriorityQueue;
 
 /**
  * Created by Jok3r on 13.01.2017.
@@ -47,6 +50,7 @@ public class JLeftMenuPanel extends JPanel{
         addFlowLayout();
         addTextFieldListeners();
         addComboBoxListeners();
+        addButtonListener();
 
         writeToConsole("Ready ...");
 
@@ -115,10 +119,21 @@ public class JLeftMenuPanel extends JPanel{
 
         jButtonStartAlgorithm.setEnabled(false);
 
-        menuConsole = new JTextArea(13,1);
+        menuConsole = new JTextArea(15,1);
         menuConsole.setSize(new Dimension(Constants.PANEL_LEFT_MENU_SIZE_X,120));
         menuConsole.setEditable(false);
     }
+
+    private void addButtonListener()
+    {
+        jButtonStartAlgorithm.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                jGraphPanel.pathDrawer = new PathDrawer(Algorithm.MCST(startNode),jGraphPanel);
+            }
+        });
+    }
+
 
     private void addComboBoxListeners ()
     {

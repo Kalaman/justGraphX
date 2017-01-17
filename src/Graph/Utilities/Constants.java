@@ -25,11 +25,24 @@ public class Constants {
     public static final int NODE_HEIGHT = NODE_WIDTH;
 
 
+    public static final int [] EDGE_FOUND_COLOR = {
+            25,
+            193,
+            14
+    };
+
+    public static final int [] EDGE_DEFAULT_COLOR = {
+            0,
+            0,
+            0
+    };
+
     public static final int [] NODE_START_COLOR = {
             115,
             225,
             0
     };
+
     public static final int [] NODE_NORMAL_COLOR = {
             107,
             107,
@@ -54,5 +67,7 @@ public class Constants {
     public static final String [] ALGORITHMS = {ALGORITHM_MCST,ALGORITHM_DIJKSTRA};
 
     public static final Node DEFAULT_NODE = new Node("-1",1337,1337);
+
+    public static final double INFINITY = 999999;
 
 }

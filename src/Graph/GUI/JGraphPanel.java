@@ -4,6 +4,7 @@ import Graph.Edge;
 import Graph.Node;
 import Graph.Utilities.CSVReader;
 import Graph.Utilities.Constants;
+import Graph.Utilities.PathDrawer;
 import com.sun.xml.internal.bind.v2.runtime.reflect.opt.Const;
 
 import javax.swing.*;
@@ -15,16 +16,21 @@ import java.util.ArrayList;
  */
 public class JGraphPanel extends JPanel{
 
-    ArrayList<Node> nodeArrayList;
-    ArrayList<Edge> edgeArrayList;
+    public ArrayList<Node> nodeArrayList;
+    public ArrayList<Edge> edgeArrayList;
+
+    public static ArrayList<Node> currentNodeArrayList;
+    public static ArrayList<Edge> currentEdgeArrayList;
+
+    public static PathDrawer pathDrawer;
 
 
     public JGraphPanel()
     {
         this.setPreferredSize(new Dimension(Constants.PANEL_GRAPH_SIZE_X,Constants.PANEL_GRAPH_SIZE_Y));
 
-        nodeArrayList = CSVReader.getNodeList();
-        edgeArrayList = CSVReader.getEdgeList();
+        currentNodeArrayList = nodeArrayList = CSVReader.getNodeList();
+        currentEdgeArrayList = edgeArrayList = CSVReader.getEdgeList();
 
     }
 
@@ -35,7 +41,7 @@ public class JGraphPanel extends JPanel{
 
         Color defaultColor = g.getColor();
 
-        for(Edge currentEdge:edgeArrayList){
+        for(Edge currentEdge:currentEdgeArrayList){
             int pointX1 = currentEdge.getNode1().getPosX() * Constants.SIZE_MULTIPLIKATOR;
             int pointY1 = currentEdge.getNode1().getPosY() * Constants.SIZE_MULTIPLIKATOR;
 
@@ -45,14 +51,22 @@ public class JGraphPanel extends JPanel{
             FontMetrics fm = g.getFontMetrics();
             double textWidth = fm.getStringBounds(currentEdge.toString(), g).getWidth();
 
-            g.drawLine(pointX1,pointY1,pointX2,pointY2);
-            g.setColor(Color.BLUE);
-            g.drawString(currentEdge.toString(),(int)((pointX1+pointX2)/2) - (int)(textWidth/2),(int)((pointY1+pointY2)/2) );
-            g.setColor(defaultColor);
+            Graphics2D g2 = (Graphics2D) g;
+            g2.setStroke(new BasicStroke(2));
+
+            if (currentEdge.marked)
+                g2.setColor(new Color(Constants.EDGE_FOUND_COLOR[0],Constants.EDGE_FOUND_COLOR[1],Constants.EDGE_FOUND_COLOR[2]));
+            else
+                g2.setColor(new Color(Constants.EDGE_DEFAULT_COLOR[0],Constants.EDGE_DEFAULT_COLOR[1],Constants.EDGE_DEFAULT_COLOR[2]));
+
+            g2.drawLine(pointX1,pointY1,pointX2,pointY2);
+            g2.setColor(Color.BLUE);
+            g2.drawString(currentEdge.toString(),(int)((pointX1+pointX2)/2) - (int)(textWidth/2),(int)((pointY1+pointY2)/2) );
+            g2.setColor(defaultColor);
         }
 
 
-        for(Node currentNode:nodeArrayList){
+        for(Node currentNode:currentNodeArrayList){
             int positionX = currentNode.getPosX() * Constants.SIZE_MULTIPLIKATOR;
             int positionY = currentNode.getPosY() * Constants.SIZE_MULTIPLIKATOR;
 
