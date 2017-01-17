@@ -10,9 +10,9 @@ import java.awt.*;
  */
 public class JMainFrame extends JFrame{
 
-    JLeftMenuPanel jLeftMenuPanel = new JLeftMenuPanel();
     JStatusBar jStatusBar = new JStatusBar();
     JGraphPanel jGraphPanel = new JGraphPanel();
+    JLeftMenuPanel jLeftMenuPanel = new JLeftMenuPanel(jGraphPanel);
 
     public JMainFrame() throws HeadlessException {
         super("justGraphX");

@@ -15,9 +15,16 @@ import java.util.ArrayList;
  */
 public class JGraphPanel extends JPanel{
 
+    ArrayList<Node> nodeArrayList;
+    ArrayList<Edge> edgeArrayList;
+
+
     public JGraphPanel()
     {
         this.setPreferredSize(new Dimension(Constants.PANEL_GRAPH_SIZE_X,Constants.PANEL_GRAPH_SIZE_Y));
+
+        nodeArrayList = CSVReader.getNodeList();
+        edgeArrayList = CSVReader.getEdgeList();
 
     }
 
@@ -25,8 +32,6 @@ public class JGraphPanel extends JPanel{
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
 
-        ArrayList<Node> nodeArrayList = CSVReader.getNodeList();
-        ArrayList<Edge> edgeArrayList = CSVReader.getEdgeList();
 
         Color defaultColor = g.getColor();
 
@@ -51,6 +56,8 @@ public class JGraphPanel extends JPanel{
             int positionX = currentNode.getPosX() * Constants.SIZE_MULTIPLIKATOR;
             int positionY = currentNode.getPosY() * Constants.SIZE_MULTIPLIKATOR;
 
+            int [] color = currentNode.getColor();
+            g.setColor(new Color (color[0],color[1],color[2]));
             g.fillOval(positionX-(Constants.NODE_WIDTH/2),positionY-(Constants.NODE_HEIGHT/2), Constants.NODE_WIDTH,Constants.NODE_HEIGHT);
             g.setColor(Color.WHITE);
 
@@ -58,7 +65,7 @@ public class JGraphPanel extends JPanel{
             double textWidth = fm.getStringBounds(currentNode.toString(), g).getWidth();
 
             g.drawString(currentNode.toString(),(int)(positionX-textWidth/2),(int)(positionY+fm.getAscent()/2));
-            g.setColor(defaultColor);
+
         }
 
 
