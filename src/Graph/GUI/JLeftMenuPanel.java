@@ -13,7 +13,6 @@ import javax.swing.text.DefaultCaret;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.PriorityQueue;
 
 /**
  * Created by Jok3r on 13.01.2017.
@@ -227,10 +226,14 @@ public class JLeftMenuPanel extends JPanel{
         }
 
         if (startNode.nodeType == Constants.NODE_TYPE.NODE_START
-                && endNode.nodeType == Constants.NODE_TYPE.NODE_END)
+                && endNode.nodeType == Constants.NODE_TYPE.NODE_END) {
             jButtonStartAlgorithm.setEnabled(true);
-        else
+            JStatusBar.unlockNavigationButtons(true);
+        }
+        else {
             jButtonStartAlgorithm.setEnabled(false);
+            JStatusBar.unlockNavigationButtons(false);
+        }
 
     }
 

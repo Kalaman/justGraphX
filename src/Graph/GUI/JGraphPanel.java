@@ -38,8 +38,11 @@ public class JGraphPanel extends JPanel{
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
 
+        Graphics2D g2 = (Graphics2D) g;
 
         Color defaultColor = g.getColor();
+        Stroke defaultStroke = g2.getStroke();
+
 
         for(Edge currentEdge:currentEdgeArrayList){
             int pointX1 = currentEdge.getNode1().getPosX() * Constants.SIZE_MULTIPLIKATOR;
@@ -51,14 +54,15 @@ public class JGraphPanel extends JPanel{
             FontMetrics fm = g.getFontMetrics();
             double textWidth = fm.getStringBounds(currentEdge.toString(), g).getWidth();
 
-            Graphics2D g2 = (Graphics2D) g;
-            g2.setStroke(new BasicStroke(2));
 
-            if (currentEdge.marked)
-                g2.setColor(new Color(Constants.EDGE_FOUND_COLOR[0],Constants.EDGE_FOUND_COLOR[1],Constants.EDGE_FOUND_COLOR[2]));
-            else
-                g2.setColor(new Color(Constants.EDGE_DEFAULT_COLOR[0],Constants.EDGE_DEFAULT_COLOR[1],Constants.EDGE_DEFAULT_COLOR[2]));
-
+            if (currentEdge.marked) {
+                g2.setColor(new Color(Constants.EDGE_FOUND_COLOR[0], Constants.EDGE_FOUND_COLOR[1], Constants.EDGE_FOUND_COLOR[2]));
+                g2.setStroke(new BasicStroke(2));
+            }
+            else {
+                g2.setColor(new Color(Constants.EDGE_DEFAULT_COLOR[0], Constants.EDGE_DEFAULT_COLOR[1], Constants.EDGE_DEFAULT_COLOR[2]));
+                g2.setStroke(defaultStroke);
+            }
             g2.drawLine(pointX1,pointY1,pointX2,pointY2);
             g2.setColor(Color.BLUE);
             g2.drawString(currentEdge.toString(),(int)((pointX1+pointX2)/2) - (int)(textWidth/2),(int)((pointY1+pointY2)/2) );

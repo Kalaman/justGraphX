@@ -24,6 +24,14 @@ public class Edge {
         marked = false;
     }
 
+    public Edge (Edge cpyEdge)
+    {
+        this.value = cpyEdge.getValue();
+        this.node1 = new Node(String.valueOf(cpyEdge.getNode1().getName()),cpyEdge.getNode1().getPosX(),cpyEdge.getNode1().getPosY());
+        this.node2 = new Node(String.valueOf(cpyEdge.getNode2().getName()),cpyEdge.getNode2().getPosX(),cpyEdge.getNode2().getPosY());
+        this.marked = cpyEdge.marked;
+    }
+
     public void mark (boolean mark)
     {
         this.marked = mark;

@@ -1,21 +1,24 @@
 package Graph;
 
 import Graph.Utilities.Constants;
+import com.sun.tools.internal.jxc.ap.Const;
+import sun.jvm.hotspot.oops.CompressedLineNumberReadStream;
 
 import java.awt.*;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.HashMap;
 
 /**
  * Created by Kalaman on 09.01.17.
  */
-public class Node {
+public class Node implements Comparable <Node>{
 
-    private String name;
+    private String name = "";
     private Point xyPosition;
 
-    private Node pi;
-    private Double key;
+    private Node pi = Constants.DEFAULT_NODE;
+    private double key = Constants.INFINITY;;
 
     private boolean marked;
     private int [] color = new int [3];
@@ -38,6 +41,24 @@ public class Node {
     public Node (String name,int x,int y,boolean marked){
         this(name,x,y);
         markNode(marked);
+    }
+
+    public Node (Node cpyNode)
+    {
+        this.name = String.valueOf(cpyNode.name);
+        this.xyPosition = new Point(cpyNode.getPosX(),cpyNode.getPosY());
+        this.edges = new ArrayList<>();
+        this.color = cpyNode.getColor();
+
+        for(Edge currentEdge: cpyNode.getEdges())
+        {
+            edges.add(new Edge(currentEdge));
+        }
+        this.key = cpyNode.getKey();
+        if (cpyNode.getPi() == null || cpyNode.getPi().equals(Constants.DEFAULT_NODE))
+            this.pi = Constants.DEFAULT_NODE;
+        else
+            this.pi = new Node(cpyNode.getPi());
     }
 
     public void setKey(double key) {
@@ -115,8 +136,19 @@ public class Node {
         return null;
     }
 
+    public String getName() {
+        return name;
+    }
+
     public int [] getColor ()
     {
         return this.color;
+    }
+
+    @Override
+    public int compareTo(Node o) {
+        if (this.key == o.key) return 0;
+        else if (this.key > o.key) return 1;
+        else return -1;
     }
 }
