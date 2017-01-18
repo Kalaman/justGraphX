@@ -1,13 +1,9 @@
-package Graph;
+package Graph.Structure;
 
 import Graph.Utilities.Constants;
-import com.sun.tools.internal.jxc.ap.Const;
-import sun.jvm.hotspot.oops.CompressedLineNumberReadStream;
 
 import java.awt.*;
 import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.HashMap;
 
 /**
  * Created by Kalaman on 09.01.17.
@@ -96,9 +92,6 @@ public class Node implements Comparable <Node>{
         {
             case NODE_START:
                 color = Constants.NODE_START_COLOR;
-                break;
-            case NODE_END:
-                color = Constants.NODE_END_COLOR;
                 break;
             case NODE_NORMAL:
                 color = Constants.NODE_NORMAL_COLOR;

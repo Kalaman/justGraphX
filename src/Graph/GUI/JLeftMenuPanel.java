@@ -1,6 +1,7 @@
 package Graph.GUI;
 
-import Graph.Node;
+import Graph.Main;
+import Graph.Structure.Node;
 import Graph.Utilities.Algorithm;
 import Graph.Utilities.CSVReader;
 import Graph.Utilities.Constants;
@@ -13,21 +14,21 @@ import javax.swing.text.DefaultCaret;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
 
 /**
  * Created by Jok3r on 13.01.2017.
  */
 public class JLeftMenuPanel extends JPanel{
 
-    JButton jButtonStartAlgorithm;
+    public static JButton jButtonStartAlgorithm;
 
-    JTextField jStartNodeTextField;
-    JTextField jEndNodeTextField;
+    public static JTextField jStartNodeTextField;
 
     JLabel jStartNodeLabel;
-    JLabel jEndNodeLabel;
 
-    JComboBox jAlgorithmComboBox;
+    public static JComboBox jAlgorithmComboBox;
 
     JPanel boxLayoutPanel;
     public JGraphPanel jGraphPanel;
@@ -35,7 +36,6 @@ public class JLeftMenuPanel extends JPanel{
     public static JTextArea menuConsole;
 
     public static Node startNode = Constants.DEFAULT_NODE;
-    public static Node endNode = Constants.DEFAULT_NODE;
 
 
 
@@ -87,9 +87,6 @@ public class JLeftMenuPanel extends JPanel{
         jPanelNodeStart.add(this.jStartNodeLabel);
         jPanelNodeStart.add(this.jStartNodeTextField);
 
-        jPanelNodeEnd.add(this.jEndNodeLabel);
-        jPanelNodeEnd.add(this.jEndNodeTextField);
-
         jPanelAlgorithm.add(new JLabel("Algorithm"));
         jPanelAlgorithm.add(this.jAlgorithmComboBox);
 
@@ -111,9 +108,7 @@ public class JLeftMenuPanel extends JPanel{
     {
         jButtonStartAlgorithm = new JButton("Start");
         jStartNodeLabel = new JLabel("Start Node");
-        jEndNodeLabel = new JLabel("End Node");
         jStartNodeTextField = new JTextField(16);
-        jEndNodeTextField = new JTextField(16);
         jAlgorithmComboBox = new JComboBox(Constants.ALGORITHMS);
 
         jButtonStartAlgorithm.setEnabled(false);
@@ -128,7 +123,15 @@ public class JLeftMenuPanel extends JPanel{
         jButtonStartAlgorithm.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                jGraphPanel.pathDrawer = new PathDrawer(Algorithm.MCST(startNode),jGraphPanel);
+                if (Main.SELECTED_ALGORITHM == Constants.ALGORITHM_MCST) {
+                    jGraphPanel.pathDrawer = new PathDrawer(Algorithm.MCST(startNode), jGraphPanel);
+                }
+                else {
+                    jGraphPanel.pathDrawer = new PathDrawer(Algorithm.Dijkstra(startNode), jGraphPanel);
+                }
+                JStatusBar.unlockNavigationForwardButtons(true);
+                lockMenu(true);
+                writeToConsole(Main.SELECTED_ALGORITHM + " Algorithm started !");
             }
         });
     }
@@ -136,10 +139,15 @@ public class JLeftMenuPanel extends JPanel{
 
     private void addComboBoxListeners ()
     {
-        jAlgorithmComboBox.addActionListener(new ActionListener() {
+
+        jAlgorithmComboBox.addItemListener(new ItemListener() {
             @Override
-            public void actionPerformed(ActionEvent e) {
-                writeToConsole(e.getActionCommand());
+            public void itemStateChanged(ItemEvent e) {
+                if (e.getStateChange() == ItemEvent.SELECTED)
+                {
+                    Main.SELECTED_ALGORITHM = e.getItemSelectable().getSelectedObjects()[0].toString();
+                    writeToConsole(Main.SELECTED_ALGORITHM + " Algorithm chosen");
+                }
             }
         });
     }
@@ -163,24 +171,13 @@ public class JLeftMenuPanel extends JPanel{
             }
         });
 
-        jEndNodeTextField.getDocument().addDocumentListener(new DocumentListener() {
-            @Override
-            public void insertUpdate(DocumentEvent e) {
-                updateGraph(e, Constants.NODE_TYPE.NODE_END);
+    }
 
-            }
-
-            @Override
-            public void removeUpdate(DocumentEvent e) {
-                updateGraph(e, Constants.NODE_TYPE.NODE_END);
-            }
-
-            @Override
-            public void changedUpdate(DocumentEvent e) {
-
-            }
-        });
-
+    public static void lockMenu (boolean b)
+    {
+        jAlgorithmComboBox.setEnabled(!b);
+        jButtonStartAlgorithm.setEnabled(!b);
+        jStartNodeTextField.setEnabled(!b);
     }
 
     private void updateGraph(DocumentEvent e, Constants.NODE_TYPE nodeType)
@@ -197,9 +194,6 @@ public class JLeftMenuPanel extends JPanel{
                     case NODE_START:
                         startNode = node;
                         break;
-                    case NODE_END:
-                        endNode = node;
-                        break;
                 }
 
                 writeToConsole("Select Node " + input + " as " + nodeType);
@@ -214,10 +208,6 @@ public class JLeftMenuPanel extends JPanel{
                         startNode.changeNodeType(Constants.NODE_TYPE.NODE_NORMAL);
                         jGraphPanel.repaint();
                         break;
-                    case NODE_END:
-                        endNode.changeNodeType(Constants.NODE_TYPE.NODE_NORMAL);
-                        jGraphPanel.repaint();
-                        break;
                 }
             }
 
@@ -225,14 +215,11 @@ public class JLeftMenuPanel extends JPanel{
             ee.printStackTrace();
         }
 
-        if (startNode.nodeType == Constants.NODE_TYPE.NODE_START
-                && endNode.nodeType == Constants.NODE_TYPE.NODE_END) {
+        if (startNode.nodeType == Constants.NODE_TYPE.NODE_START){
             jButtonStartAlgorithm.setEnabled(true);
-            JStatusBar.unlockNavigationButtons(true);
         }
         else {
             jButtonStartAlgorithm.setEnabled(false);
-            JStatusBar.unlockNavigationButtons(false);
         }
 
     }

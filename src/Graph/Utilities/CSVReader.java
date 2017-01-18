@@ -1,13 +1,12 @@
 package Graph.Utilities;
 
-import Graph.Edge;
-import Graph.Node;
+import Graph.Structure.Edge;
+import Graph.Structure.Node;
 
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.HashMap;
 

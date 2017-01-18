@@ -1,8 +1,8 @@
 package Graph.Utilities;
 
-import Graph.Edge;
-import Graph.GUI.JGraphPanel;
-import Graph.Node;
+import Graph.Main;
+import Graph.Structure.Edge;
+import Graph.Structure.Node;
 
 import java.util.ArrayList;
 

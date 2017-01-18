@@ -1,11 +1,10 @@
 package Graph.GUI;
 
-import Graph.Edge;
-import Graph.Node;
+import Graph.Structure.Edge;
+import Graph.Structure.Node;
 import Graph.Utilities.CSVReader;
 import Graph.Utilities.Constants;
 import Graph.Utilities.PathDrawer;
-import com.sun.xml.internal.bind.v2.runtime.reflect.opt.Const;
 
 import javax.swing.*;
 import java.awt.*;
@@ -16,11 +15,8 @@ import java.util.ArrayList;
  */
 public class JGraphPanel extends JPanel{
 
-    public ArrayList<Node> nodeArrayList;
-    public ArrayList<Edge> edgeArrayList;
-
-    public static ArrayList<Node> currentNodeArrayList;
-    public static ArrayList<Edge> currentEdgeArrayList;
+    public static ArrayList<Node> nodeArrayList;
+    public static ArrayList<Edge> edgeArrayList;
 
     public static PathDrawer pathDrawer;
 
@@ -29,9 +25,8 @@ public class JGraphPanel extends JPanel{
     {
         this.setPreferredSize(new Dimension(Constants.PANEL_GRAPH_SIZE_X,Constants.PANEL_GRAPH_SIZE_Y));
 
-        currentNodeArrayList = nodeArrayList = CSVReader.getNodeList();
-        currentEdgeArrayList = edgeArrayList = CSVReader.getEdgeList();
-
+        nodeArrayList = CSVReader.getNodeList();
+        edgeArrayList = CSVReader.getEdgeList();
     }
 
     @Override
@@ -44,7 +39,7 @@ public class JGraphPanel extends JPanel{
         Stroke defaultStroke = g2.getStroke();
 
 
-        for(Edge currentEdge:currentEdgeArrayList){
+        for(Edge currentEdge:edgeArrayList){
             int pointX1 = currentEdge.getNode1().getPosX() * Constants.SIZE_MULTIPLIKATOR;
             int pointY1 = currentEdge.getNode1().getPosY() * Constants.SIZE_MULTIPLIKATOR;
 
@@ -70,7 +65,7 @@ public class JGraphPanel extends JPanel{
         }
 
 
-        for(Node currentNode:currentNodeArrayList){
+        for(Node currentNode:nodeArrayList){
             int positionX = currentNode.getPosX() * Constants.SIZE_MULTIPLIKATOR;
             int positionY = currentNode.getPosY() * Constants.SIZE_MULTIPLIKATOR;
 

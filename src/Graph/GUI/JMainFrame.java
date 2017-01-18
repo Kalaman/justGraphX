@@ -10,8 +10,8 @@ import java.awt.*;
  */
 public class JMainFrame extends JFrame{
 
-    JStatusBar jStatusBar = new JStatusBar();
     JGraphPanel jGraphPanel = new JGraphPanel();
+    JStatusBar jStatusBar = new JStatusBar(jGraphPanel);
     JLeftMenuPanel jLeftMenuPanel = new JLeftMenuPanel(jGraphPanel);
 
     public JMainFrame() throws HeadlessException {

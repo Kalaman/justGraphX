@@ -1,6 +1,4 @@
-package Graph;
-
-import java.util.HashMap;
+package Graph.Structure;
 
 /**
  * Created by Kalaman on 09.01.17.

@@ -1,6 +1,6 @@
 package Graph.Utilities;
 
-import Graph.Node;
+import Graph.Structure.Node;
 
 import java.util.Comparator;
 

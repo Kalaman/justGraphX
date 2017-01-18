@@ -1,6 +1,6 @@
 package Graph.Utilities;
 
-import Graph.Node;
+import Graph.Structure.Node;
 
 /**
  * Created by Jok3r on 13.01.2017.
@@ -24,6 +24,12 @@ public class Constants {
     public static final int NODE_WIDTH = 25;
     public static final int NODE_HEIGHT = NODE_WIDTH;
 
+
+    public enum SELECTED_ALGORITHM{
+        NONE,
+        DIJKSTRA,
+        MCST
+    }
 
     public static final int [] EDGE_FOUND_COLOR = {
             25,
@@ -49,15 +55,9 @@ public class Constants {
             106
     };
 
-    public static final int [] NODE_END_COLOR = {
-            255,
-            209,
-            0
-    };
 
     public enum NODE_TYPE {
         NODE_START,
-        NODE_END,
         NODE_NORMAL
     }
 
