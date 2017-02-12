@@ -9,10 +9,10 @@ public class Constants {
 
     public static final int SIZE_MULTIPLIKATOR = 7;
 
-    public static final int FRAME_SIZE_X = 150 * SIZE_MULTIPLIKATOR;
+    public static final int FRAME_SIZE_X = 155 * SIZE_MULTIPLIKATOR;
     public static final int FRAME_SIZE_Y = 100 * SIZE_MULTIPLIKATOR;
 
-    public static final int PANEL_LEFT_MENU_SIZE_X = 40 * SIZE_MULTIPLIKATOR;
+    public static final int PANEL_LEFT_MENU_SIZE_X = 45 * SIZE_MULTIPLIKATOR;
     public static final int PANEL_LEFT_MENU_SIZE_Y = FRAME_SIZE_Y;
 
     public static final int PANEL_GRAPH_SIZE_X = FRAME_SIZE_X - PANEL_LEFT_MENU_SIZE_X;
@@ -24,12 +24,6 @@ public class Constants {
     public static final int NODE_WIDTH = 25;
     public static final int NODE_HEIGHT = NODE_WIDTH;
 
-
-    public enum SELECTED_ALGORITHM{
-        NONE,
-        DIJKSTRA,
-        MCST
-    }
 
     public static final int [] EDGE_FOUND_COLOR = {
             25,
@@ -43,9 +37,15 @@ public class Constants {
             0
     };
 
-    public static final int [] NODE_START_COLOR = {
+    public static final int [] NODE_BRIDGE_COLOR = {
             115,
             225,
+            0
+    };
+
+    public static final int [] NODE_START_COLOR = {
+            255,
+            165,
             0
     };
 
@@ -58,13 +58,15 @@ public class Constants {
 
     public enum NODE_TYPE {
         NODE_START,
+        NODE_BRIDGE,
         NODE_NORMAL
     }
 
     public static final String ALGORITHM_DIJKSTRA = "Dijkstra";
     public static final String ALGORITHM_MCST = "MCST";
+    public static final String ALGORITHM_DFS = "DFS";
 
-    public static final String [] ALGORITHMS = {ALGORITHM_MCST,ALGORITHM_DIJKSTRA};
+    public static final String [] ALGORITHMS = {ALGORITHM_MCST,ALGORITHM_DIJKSTRA,ALGORITHM_DFS};
 
     public static final Node DEFAULT_NODE = new Node("-1",1337,1337);
 

@@ -16,7 +16,7 @@ public class Node implements Comparable <Node>{
     private Node pi = Constants.DEFAULT_NODE;
     private double key = Constants.INFINITY;;
 
-    private boolean marked;
+    public boolean marked;
     private int [] color = new int [3];
 
     public Constants.NODE_TYPE nodeType;
@@ -95,6 +95,9 @@ public class Node implements Comparable <Node>{
                 break;
             case NODE_NORMAL:
                 color = Constants.NODE_NORMAL_COLOR;
+                break;
+            case NODE_BRIDGE:
+                color = Constants.NODE_BRIDGE_COLOR;
                 break;
         }
     }

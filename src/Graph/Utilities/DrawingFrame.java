@@ -14,7 +14,9 @@ public class DrawingFrame {
     ArrayList<Edge> edges = new ArrayList<>();
     ArrayList<Node> nodes = new ArrayList<>();
 
-    public DrawingFrame(ArrayList <Node> nodeList, ArrayList<Edge> edgeList)
+    String heapInfo = "";
+
+    public DrawingFrame(ArrayList <Node> nodeList, ArrayList<Edge> edgeList , String heapInfo)
     {
         for (Edge currentEdge : edgeList)
         {
@@ -25,6 +27,7 @@ public class DrawingFrame {
         {
             this.nodes.add(new Node(currentNode));
         }
+        this.heapInfo = heapInfo;
 
     }
 

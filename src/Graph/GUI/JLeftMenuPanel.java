@@ -113,7 +113,7 @@ public class JLeftMenuPanel extends JPanel{
 
         jButtonStartAlgorithm.setEnabled(false);
 
-        menuConsole = new JTextArea(15,1);
+        menuConsole = new JTextArea(32,1);
         menuConsole.setSize(new Dimension(Constants.PANEL_LEFT_MENU_SIZE_X,120));
         menuConsole.setEditable(false);
     }
@@ -126,12 +126,17 @@ public class JLeftMenuPanel extends JPanel{
                 if (Main.SELECTED_ALGORITHM == Constants.ALGORITHM_MCST) {
                     jGraphPanel.pathDrawer = new PathDrawer(Algorithm.MCST(startNode), jGraphPanel);
                 }
+                else if (Main.SELECTED_ALGORITHM == Constants.ALGORITHM_DFS)
+                {
+                    jGraphPanel.pathDrawer = new PathDrawer(Algorithm.DFS(startNode),jGraphPanel);
+                }
                 else {
                     jGraphPanel.pathDrawer = new PathDrawer(Algorithm.Dijkstra(startNode), jGraphPanel);
                 }
                 JStatusBar.unlockNavigationForwardButtons(true);
                 lockMenu(true);
                 writeToConsole(Main.SELECTED_ALGORITHM + " Algorithm started !");
+
             }
         });
     }
@@ -157,12 +162,12 @@ public class JLeftMenuPanel extends JPanel{
         jStartNodeTextField.getDocument().addDocumentListener(new DocumentListener() {
             @Override
             public void insertUpdate(DocumentEvent e) {
-                updateGraph(e, Constants.NODE_TYPE.NODE_START);
+                updateGraph(e);
             }
 
             @Override
             public void removeUpdate(DocumentEvent e) {
-                updateGraph(e, Constants.NODE_TYPE.NODE_START);
+                updateGraph(e);
             }
 
             @Override
@@ -178,37 +183,32 @@ public class JLeftMenuPanel extends JPanel{
         jAlgorithmComboBox.setEnabled(!b);
         jButtonStartAlgorithm.setEnabled(!b);
         jStartNodeTextField.setEnabled(!b);
+
+        if (b == false)
+            jStartNodeTextField.setText("");
     }
 
-    private void updateGraph(DocumentEvent e, Constants.NODE_TYPE nodeType)
+    private void updateGraph(DocumentEvent e)
     {
         try {
             String input = e.getDocument().getText(0, e.getDocument().getLength()).toString().toUpperCase();
             if (CSVReader.nodeHashMap.containsKey(input))
             {
+                JStatusBar.writeToStatusBar("Found Node '" + input + "' ");
                 Node node = CSVReader.nodeHashMap.get(input);
-                node.changeNodeType(nodeType);
+                node.changeNodeType(Constants.NODE_TYPE.NODE_START);
 
-                switch (nodeType)
-                {
-                    case NODE_START:
-                        startNode = node;
-                        break;
-                }
+                startNode = node;
 
-                writeToConsole("Select Node " + input + " as " + nodeType);
+                writeToConsole("Start Node = " + input);
 
                 jGraphPanel.repaint();
             }
             else
             {
-                switch (nodeType)
-                {
-                    case NODE_START:
-                        startNode.changeNodeType(Constants.NODE_TYPE.NODE_NORMAL);
-                        jGraphPanel.repaint();
-                        break;
-                }
+                JStatusBar.writeToStatusBar("Can't find Node '" + input + "' ");
+                startNode.changeNodeType(Constants.NODE_TYPE.NODE_NORMAL);
+                jGraphPanel.repaint();
             }
 
         }catch(Exception ee){

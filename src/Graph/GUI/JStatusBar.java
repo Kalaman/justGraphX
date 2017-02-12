@@ -9,6 +9,7 @@ import Graph.Structure.Edge;
 import Graph.Structure.Node;
 import Graph.Utilities.CSVReader;
 import Graph.Utilities.Constants;
+import com.sun.xml.internal.bind.v2.runtime.reflect.opt.Const;
 
 /**
  * Created by Jok3r on 13.01.2017.
@@ -83,23 +84,13 @@ public class JStatusBar extends JPanel{
                 JLeftMenuPanel.lockMenu(false);
 
                 CSVReader.nodeHashMap.clear();
-
-                for (Node currentNode :jGraphPanel.nodeArrayList){
-                    currentNode.changeNodeType(Constants.NODE_TYPE.NODE_NORMAL);
-
-                    CSVReader.nodeHashMap.put(currentNode.toString(),currentNode);
-                }
-
-                for (Edge currentEdge: jGraphPanel.edgeArrayList)
-                {
-                    currentEdge.mark(false);
-                }
-
-
+                JGraphPanel.nodeArrayList = CSVReader.getNodeList();
+                JGraphPanel.edgeArrayList = CSVReader.getEdgeList();
 
                 jGraphPanel.repaint();
 
                 JLeftMenuPanel.writeToConsole("Graph reseted");
+                JStatusBar.writeToStatusBar("Ready");
             }
         });
     }

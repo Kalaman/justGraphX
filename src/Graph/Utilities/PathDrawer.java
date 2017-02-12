@@ -12,18 +12,18 @@ import java.util.ArrayList;
  */
 public class PathDrawer {
 
-    ArrayList<DrawingFrame> drawingFrame;
+    ArrayList<DrawingFrame> drawingFrames;
     private int index = 0;
     private JGraphPanel jGraphPanel;
 
-    public PathDrawer(ArrayList<DrawingFrame> drawingClip , JGraphPanel jGraphPanel){
-        this.drawingFrame = drawingClip;
+    public PathDrawer(ArrayList<DrawingFrame> drawingFrames , JGraphPanel jGraphPanel){
+        this.drawingFrames = drawingFrames;
         this.jGraphPanel = jGraphPanel;
+        JStatusBar.writeToStatusBar("Step ("+ (index+1) + "/"+ drawingFrames.size()+") " + Main.SELECTED_ALGORITHM + " Algorithm");
     }
 
     public void makePrevStep ()
     {
-
         if (index > 0) {
             --index;
             step(index);
@@ -37,7 +37,7 @@ public class PathDrawer {
 
     public void makeNextStep ()
     {
-        if (index < drawingFrame.size()) {
+        if (index < drawingFrames.size()) {
 
             ++index;
             step(index);
@@ -47,9 +47,11 @@ public class PathDrawer {
 
     private void step(int index)
     {
-        JStatusBar.writeToStatusBar("Step ("+ (index+1) + "/"+ drawingFrame.size()+") " + Main.SELECTED_ALGORITHM + " Algorithm");
-        jGraphPanel.nodeArrayList = drawingFrame.get(index).nodes;
-        jGraphPanel.edgeArrayList = drawingFrame.get(index).edges;
+        JStatusBar.writeToStatusBar("Step ("+ (index+1) + "/"+ drawingFrames.size()+") " + Main.SELECTED_ALGORITHM + " Algorithm");
+        JLeftMenuPanel.writeToConsole("Heap after Step "+ index +drawingFrames.get(index).heapInfo);
+
+        jGraphPanel.nodeArrayList = drawingFrames.get(index).nodes;
+        jGraphPanel.edgeArrayList = drawingFrames.get(index).edges;
 
         jGraphPanel.repaint();
 
@@ -58,7 +60,7 @@ public class PathDrawer {
             JStatusBar.unlockNavigationBackwardButtons(false);
             JStatusBar.unlockNavigationForwardButtons(true);
         }
-        else if (index + 1  ==  drawingFrame.size()) {
+        else if (index + 1  ==  drawingFrames.size()) {
             JStatusBar.unlockNavigationForwardButtons(false);
             JStatusBar.unlockNavigationBackwardButtons(true);
         }
@@ -70,7 +72,7 @@ public class PathDrawer {
     }
 
     public void jumpToEnd(){
-        index = drawingFrame.size()-1;
+        index = drawingFrames.size()-1;
 
         step(index);
     }
